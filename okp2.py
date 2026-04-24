@@ -10,8 +10,8 @@ import random
 st.set_page_config(page_title="園芸施設 統合管理システム", layout="wide")
 
 # --- Supabase接続設定 ---
-url: str = st.secrets["SUPABASE_URL"]
-key: str = st.secrets["SUPABASE_KEY"]
+url: str = st.secrets["https://bggjpihclcfxsadsueuw.supabase.co/rest/v1/"]
+key: str = st.secrets["eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnZ2pwaWhjbGNmeHNhZHN1ZXV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwMTc1MjksImV4cCI6MjA5MjU5MzUyOX0.ZrLObPDAKMwt_GrU7cjpPxVdjvXK9HkQBPVUDgph7s4"]
 supabase: Client = create_client(url, key)
 
 # --- データ操作関数 ---
