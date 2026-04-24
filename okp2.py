@@ -16,9 +16,17 @@ supabase: Client = create_client(url, key)
 
 # --- データ操作関数 ---
 def save_to_supabase(t, h):
-    """データをSupabaseに挿入"""
-    data = {"temperature": t, "humidity": h}
-    supabase.table("environment").insert(data).execute()
+    try:
+        data = {"temperature": t, "humidity": h}
+        # 実行して結果を受け取る
+        response = supabase.table("environment").insert(data).execute()
+        
+        # 画面右下にふわっと通知を出す（これが出れば成功）
+        st.toast(f"Supabaseへ送信成功: {t}℃") 
+        
+    except Exception as e:
+        # エラーが出た場合は画面に赤く表示する
+        st.error(f"データベース送信エラーが発生しました: {e}")
 
 def fetch_data_for_export(target_date):
     """指定日のデータを取得してDataFrameで返す"""
