@@ -78,13 +78,16 @@ placeholder_hum = col2.empty()
 chart_placeholder = st.empty()
 
 # --- 実行ループ ---
+count = 0
 while True:
     # 1. データ取得（シミュレーション）と保存
     t = round(random.uniform(10.0, 35.0), 1)
     h = round(random.uniform(30.0, 90.0), 1)
-    save_to_supabase(t, h)
     
-    # 2. 表示用データの読み込み
+    # ⚠️ ここを save_to_db から save_to_supabase に変更します
+    save_to_supabase(t, h) 
+    
+    # 2. 表示用データの読み込み（Supabaseから直近30件を取得）
     display_df = fetch_recent_data(30)
 
     if not display_df.empty:
@@ -96,7 +99,8 @@ while True:
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=display_df['created_at'], y=display_df['temperature'], name="温度", line=dict(color='#FF4B4B', width=4)))
         fig.add_trace(go.Scatter(x=display_df['created_at'], y=display_df['humidity'], name="湿度", line=dict(color='#1C83E1', width=4)))
-        fig.update_layout(hovermode="x unified", height=500)
+        fig.update_layout(hovermode="x unified", height=500, margin=dict(l=50, r=50, t=30, b=50))
         chart_placeholder.plotly_chart(fig, use_container_width=True)
     
-    time.sleep(5) # クラウドDBへの負荷を考え、間隔を少し広げるのが一般的です
+    # クラウドDBへの負荷を考え、5秒間隔にします
+    time.sleep(5)
