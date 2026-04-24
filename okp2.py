@@ -105,7 +105,7 @@ while True:
         fig.add_trace(go.Scatter(x=display_df['created_at'], y=display_df['temperature'], name="温度", line=dict(color='#FF4B4B', width=4)))
         fig.add_trace(go.Scatter(x=display_df['created_at'], y=display_df['humidity'], name="湿度", line=dict(color='#1C83E1', width=4)))
         fig.update_layout(hovermode="x unified", height=500, margin=dict(l=50, r=50, t=30, b=50))
-        chart_placeholder.plotly_chart(fig, use_container_width=True)
+chart_placeholder.plotly_chart(fig, width="stretch")
     
     # クラウドDBへの負荷を考え、5秒間隔にします
     time.sleep(5)
